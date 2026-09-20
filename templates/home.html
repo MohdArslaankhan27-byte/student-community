@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}Home Dashboard — CampusConnect{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+<div class="home-page">
+
+    <!-- ==================== WELCOME HERO ==================== -->
+
+    <section class="home-hero">
+
+        <div class="hero-decoration hero-decoration-one"></div>
+        <div class="hero-decoration hero-decoration-two"></div>
+
+        <div class="home-hero-content">
+
+            <div class="hero-top">
+                <span class="hero-badge">
+                    <span class="hero-status-dot"></span>
+                    Student Dashboard
+                </span>
+
+                <span class="material-symbols-outlined hero-shield">
+                    verified_user
+                </span>
+            </div>
+
+            <div class="hero-text">
+
+                <p class="hero-small-title">
+                    Welcome back
+                </p>
+
+                <h1>
+                    {{ user.name }} 👋
+                </h1>
+
+                <p class="hero-description">
+                    Stay updated with your college information,
+                    notices and academic resources.
+                </p>
+
+            </div>
+
+            {% if user.course or user.semester or user.roll_no %}
+
+            <div class="student-info">
+
+                {% if user.course %}
+                <div class="student-info-item">
+                    <span class="material-symbols-outlined">
+                        school
+                    </span>
+                    <span>{{ user.course }}</span>
+                </div>
+                {% endif %}
+
+                {% if user.semester %}
+                <div class="student-info-item">
+                    <span class="material-symbols-outlined">
+                        calendar_month
+                    </span>
+                    <span>Semester {{ user.semester }}</span>
+                </div>
+                {% endif %}
+
+                {% if user.roll_no %}
+                <div class="student-info-item">
+                    <span class="material-symbols-outlined">
+                        badge
+                    </span>
+                    <span>{{ user.roll_no }}</span>
+                </div>
+                {% endif %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================== ACADEMIC HUB ==================== -->
+
+    <section class="home-information">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="section-label">
+                    Academic Resources
+                </span>
+
+                <h2>
+                    College Information
+                </h2>
+            </div>
+
+            <span class="section-count">
+                6 Resources
+            </span>
+
+        </div>
+
+
+        <div class="home-links">
+
+            <!-- College Notices -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-indigo">
+                        <span class="material-symbols-outlined">
+                            🔔
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>College Notices</h3>
+
+                    <p>
+                        Important announcements, circulars and
+                        college updates.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View notices</span>
+                </div>
+
+            </a>
+
+
+            <!-- Exam Notices -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-rose">
+                        <span class="material-symbols-outlined">
+                            
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Exam Notices</h3>
+
+                    <p>
+                        Examination schedules, forms, results
+                        and important updates.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View exam updates</span>
+                </div>
+
+            </a>
+
+
+            <!-- Academic Calendar -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-sky">
+                        <span class="material-symbols-outlined">
+                            
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Academic Calendar</h3>
+
+                    <p>
+                        Semester dates, holidays, examinations
+                        and academic events.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View calendar</span>
+                </div>
+
+            </a>
+
+
+            <!-- Time Table -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-violet">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Time Table</h3>
+
+                    <p>
+                        View your class timetable and lecture
+                        schedules.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View timetable</span>
+                </div>
+
+            </a>
+
+
+            <!-- Assignments -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-amber">
+                        <span class="material-symbols-outlined">
+                            ✅
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Assignments</h3>
+
+                    <p>
+                        Track coursework, assignments and
+                        submission deadlines.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>View assignments</span>
+                </div>
+
+            </a>
+
+
+            <!-- Study Materials -->
+            <a href="#" class="home-link-card">
+
+                <div class="card-top">
+
+                    <div class="home-card-icon icon-emerald">
+                        <span class="material-symbols-outlined">
+                            📖
+                        </span>
+                    </div>
+
+                    <span class="card-arrow">
+                        <span class="material-symbols-outlined">
+                            →
+                        </span>
+                    </span>
+
+                </div>
+
+                <div class="card-content">
+
+                    <h3>Study Materials</h3>
+
+                    <p>
+                        Access notes, lecture slides, PDFs and
+                        learning resources.
+                    </p>
+
+                </div>
+
+                <div class="card-footer">
+                    <span>Browse materials</span>
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}
+

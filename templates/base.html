@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/friends.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/peers.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    {% from "macros/sidebar.html" import sidebar %}
+<!-- Top Navigation Bar -->
+<nav class="sticky top-0 z-50 flex items-center justify-between h-14 px-6 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
+
+    
+
+    <!-- Left: Sidebar Button + Brand Logo -->
+
+<div class="flex items-center gap-4">
+
+    <!-- Sidebar Button -->
+    <button
+        type="button"
+        onclick="toggleSidebar()"
+        class="text-slate-300 hover:text-white p-1 rounded transition-colors"
+        aria-label="Open sidebar">
+
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16">
+            </path>
+        </svg>
+
+    </button>
+
+    <!-- Logo -->
+    <a href="{{ url_for('home') }}" class="flex items-center gap-3">
+
+        <img
+            src="{{ url_for('static', filename='image/logo.jpg') }}"
+            alt="Logo"
+            class="h-8 w-auto">
+
+        <span class="font-semibold text-white tracking-tight"></span>
+
+    </a>
+
+</div>
+
+    <!-- Right: Navigation Links -->
+    
+<div class="flex items-center gap-6 text-sm font-medium">
+
+    <!-- Home -->
+    <a href="{{ url_for('home') }}"
+       class="{% if request.endpoint == 'home' %}text-white{% else %}text-slate-400{% endif %} hover:text-white transition-colors">
+        Home
+    </a>
+
+
+    <!-- Peers -->
+    <a href="{{ url_for('peers') }}"
+       class="{% if request.endpoint == 'peers' %}text-white{% else %}text-slate-400{% endif %} hover:text-white transition-colors">
+        Peers
+    </a>
+
+
+    <!-- More -->
+    <a href="{{ url_for('friends') }}"
+        class="{% if request.endpoint == 'frends' %}text-white{% else %}text-slate-400{% endif %} hover:text-white p-1 rounded transition-colors">
+        friends
+    </a>
+
+</div>
+
+
+</nav>
+
+{{ sidebar(user) }}
+
+<!-- Page Content Container -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-6 py-8">
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</main>
+</body>
+</html>

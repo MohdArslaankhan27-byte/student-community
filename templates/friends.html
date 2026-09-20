@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="chat-page friends-page-layout">
+
+    <!-- LEFT: FRIEND LIST -->
+    <div class="friends-panel">
+
+        <div class="friends-header">
+
+    <h2>My Friends</h2>
+
+    <a href="{{ url_for('friend_requests') }}"
+        class="friend-request-link"
+        title="Friend Requests">
+        👥
+    </a>
+
+</div>
+
+        <div class="friends-list">
+
+            {% if friends %}
+
+                {% for friend in friends %}
+
+                    <a href="{{ url_for('chat', friend_id=friend.id) }}"
+                       class="friend-card">
+
+                        <div class="friend-avatar">
+                            {{ friend.name[0]|upper }}
+                        </div>
+
+                        <div class="friend-info">
+                            <h3>{{ friend.name }}</h3>
+                            <p>{{ friend.email }}</p>
+                        </div>
+
+                    </a>
+
+                {% endfor %}
+
+            {% else %}
+
+                <p class="no-friends">You have no friends yet.</p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT: CHAT BOX -->
+
+    <div class="chat-panel">
+
+        <div class="chat-empty">
+
+            <div class="chat-icon">
+                💬
+            </div>
+
+            <h2>Select a friend</h2>
+
+            <p>
+                Click on a friend from the left to start chatting.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

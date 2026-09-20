@@ -1,0 +1,683 @@
+
+/* =================================
+   FRIENDS + CHAT PAGE
+================================= */
+
+.chat-page {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    background: #f5f6f8;
+}
+
+
+/* =================================
+   LEFT - FRIENDS PANEL
+================================= */
+
+.friends-panel {
+    width: 320px;
+    min-width: 280px;
+    background: white;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.friends-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.friends-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.friends-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.friends-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+
+/* Friend card */
+
+.friend-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    text-decoration: none;
+    color: #222;
+
+    border-bottom: 1px solid #eee;
+
+    transition: background 0.2s ease;
+}
+
+.friend-card:hover {
+    background: #f1f3f5;
+}
+
+
+/* Avatar */
+
+.friend-avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e9ecef;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    flex-shrink: 0;
+}
+
+
+/* Friend information */
+
+.friend-info {
+    min-width: 0;
+}
+
+.friend-info h3 {
+    margin: 0 0 4px;
+
+    font-size: 16px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friend-info p {
+    margin: 0;
+
+    font-size: 13px;
+    color: #777;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =================================
+   RIGHT - CHAT PANEL
+================================= */
+
+.chat-panel {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+}
+
+
+/* Empty chat */
+
+.chat-empty {
+    text-align: center;
+    color: #777;
+}
+
+.chat-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.chat-empty h2 {
+    margin: 0 0 8px;
+    color: #333;
+}
+
+.chat-empty p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* =================================
+   NO FRIENDS
+================================= */
+
+.no-friends {
+    padding: 20px;
+    text-align: center;
+    color: #777;
+}
+
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 700px) {
+
+    .chat-page {
+        flex-direction: column;
+    }
+
+    .friends-panel {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .chat-panel {
+        min-height: 400px;
+    }
+
+}
+
+
+
+/* =========================================
+   FRIENDS + CHAT PAGE
+========================================= */
+
+.chat-page {
+    width: 100%;
+    min-height: calc(100vh - 70px);
+
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+
+    background: #f8f9fa;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   LEFT FRIENDS PANEL
+========================================= */
+
+.friends-panel {
+    width: 100%;
+    min-width: 0;
+
+    background: #ffffff;
+
+    border-right: 1px solid #ddd;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+.friends-header {
+    height: 72px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #ddd;
+
+    flex-shrink: 0;
+}
+
+.friends-header h2 {
+    margin: 0;
+
+    font-size: 21px;
+    font-weight: 600;
+
+    color: #222;
+}
+
+.friends-list {
+    flex: 1;
+
+    overflow-y: auto;
+}
+
+
+/* Friend */
+
+.friend-card {
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 14px 16px;
+
+    text-decoration: none;
+
+    color: #222;
+
+    border-bottom: 1px solid #eee;
+
+    transition: background 0.2s ease;
+}
+
+.friend-card:hover {
+    background: #f5f6fa;
+}
+
+.friend-card.active {
+    background: #eef2ff;
+}
+
+
+/* Avatar */
+
+.friend-avatar {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e9ecef;
+
+    color: #555;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* Friend information */
+
+.friend-info {
+    min-width: 0;
+}
+
+.friend-info h3 {
+    margin: 0 0 4px;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friend-info p {
+    margin: 0;
+
+    font-size: 13px;
+
+    color: #777;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================
+   RIGHT CHAT PANEL
+========================================= */
+
+.chat-panel {
+    width: 100%;
+    min-width: 0;
+
+    height: calc(100vh - 70px);
+
+    display: flex;
+    flex-direction: column;
+
+    background: #f8f9fa;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   CHAT HEADER
+========================================= */
+
+.chat-header {
+    width: 100%;
+    min-height: 72px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px 20px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #ddd;
+
+    flex-shrink: 0;
+}
+
+.chat-header h2 {
+    margin: 0;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    color: #222;
+}
+
+.chat-header p {
+    margin: 4px 0 0;
+
+    font-size: 13px;
+
+    color: #777;
+}
+
+
+/* =========================================
+   MESSAGES AREA
+========================================= */
+
+.messages-container {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    flex: 1;
+
+    padding: 20px 24px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+/* Message row */
+
+.message-row {
+    width: 100%;
+
+    display: flex;
+}
+
+.message-row.sent {
+    justify-content: flex-end;
+}
+
+.message-row.received {
+    justify-content: flex-start;
+}
+
+
+/* Message bubble */
+
+.message {
+    display: inline-block;
+
+    width: fit-content;
+    max-width: 65%;
+
+    padding: 10px 14px;
+
+    border-radius: 16px;
+
+    font-size: 15px;
+
+    line-height: 1.4;
+
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+
+/* Sent */
+
+.message-row.sent .message {
+    background: #4f46e5;
+
+    color: white;
+
+    border-bottom-right-radius: 5px;
+}
+
+
+/* Received */
+
+.message-row.received .message {
+    background: white;
+
+    color: #222;
+
+    border: 1px solid #e1e1e1;
+
+    border-bottom-left-radius: 5px;
+}
+
+
+/* =========================================
+   NO MESSAGES
+========================================= */
+
+.no-messages {
+    margin: auto;
+
+    text-align: center;
+
+    color: #888;
+}
+
+.no-messages p {
+    margin: 4px 0;
+}
+
+
+/* =========================================
+   MESSAGE FORM
+========================================= */
+
+.message-form {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 20px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #ddd;
+
+    flex-shrink: 0;
+}
+
+
+/* Input */
+
+.message-form input {
+    flex: 1;
+
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    padding: 12px 16px;
+
+    border: 1px solid #d5d5d5;
+
+    border-radius: 25px;
+
+    outline: none;
+
+    font-size: 15px;
+
+    background: #fff;
+}
+
+.message-form input:focus {
+    border-color: #4f46e5;
+}
+
+
+/* Send */
+
+.message-form button {
+    height: 44px;
+
+    padding: 0 22px;
+
+    border: none;
+
+    border-radius: 22px;
+
+    background: #4f46e5;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition: 0.2s ease;
+}
+
+.message-form button:hover {
+    opacity: 0.9;
+}
+
+
+/* =========================================
+    MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .chat-page {
+        grid-template-columns: 1fr;
+    }
+
+    .friends-panel {
+        height: 250px;
+    }
+
+    .chat-panel {
+        height: 500px;
+    }
+
+    .message {
+        max-width: 80%;
+    }
+}
+
+
+/* Fix chat input text visibility */
+
+.message-form input {
+    color: #222222 !important;
+    background-color: #ffffff !important;
+    caret-color: #222222 !important;
+}
+
+.message-form input::placeholder {
+    color: #999999 !important;
+    opacity: 1;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    /* ==============================
+       FRIENDS PAGE
+    ============================== */
+
+    .friends-page-layout {
+        display: block;
+        width: 100%;
+    }
+
+    /* Show friend list */
+    .friends-page-layout .friends-panel {
+        display: flex;
+        width: 100%;
+        height: calc(100vh - 70px);
+        max-height: none;
+        border-right: none;
+    }
+
+    /* Hide empty chat panel on friends page */
+    .friends-page-layout .chat-panel {
+        display: none;
+    }
+
+
+    /* ==============================
+       CHAT PAGE
+    ============================== */
+
+    .chat-page:not(.friends-page-layout) {
+        display: block;
+        width: 100%;
+    }
+
+    /* Hide friend list when actual chat is open */
+    .chat-page:not(.friends-page-layout) .friends-panel {
+        display: none;
+    }
+
+    /* Chat takes full mobile screen */
+    .chat-page:not(.friends-page-layout) .chat-panel {
+        display: flex;
+        width: 100%;
+        min-width: 0;
+        height: calc(100vh - 70px);
+    }
+
+
+    /* ==============================
+       MESSAGES
+    ============================== */
+
+    .message {
+        max-width: 80%;
+    }
+
+}

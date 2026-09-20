@@ -1,0 +1,329 @@
+
+{% extends "base.html" %}
+
+{% block title %}Student Network{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<div class="index-page">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                Student Networking Platform
+            </span>
+
+            <h1>
+                Connect With Students.
+                <span>Build Your Network.</span>
+            </h1>
+
+            <p>
+                A student networking platform where you can create your
+                profile, manage your academic information, discover peers,
+                and connect with other students.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="{{ url_for('register') }}" class="primary-btn">
+                    Create Account
+                </a>
+
+                <a href="{{ url_for('login') }}" class="secondary-btn">
+                    Sign In
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About Section -->
+    <section class="about-section">
+
+        <span class="section-label">
+            About The Website
+        </span>
+
+        <h2>
+            A Place For Students To Connect
+        </h2>
+
+        <p>
+            This website helps students create and manage their
+            personal and academic profiles. Students can discover
+            other students using search and filters and view their
+            profiles.
+        </p>
+
+    </section>
+
+
+    <!-- Features Section -->
+    <section class="features-section">
+
+        <span class="section-label">
+            Features
+        </span>
+
+        <h2>
+            What You Can Do
+        </h2>
+
+
+        <div class="features-grid">
+
+            <!-- Feature 1 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Student Profiles
+                </h3>
+
+                <p>
+                    Create and manage your personal student profile
+                    with your basic information and profile photo.
+                </p>
+
+            </article>
+
+
+            <!-- Feature 2 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Academic Information
+                </h3>
+
+                <p>
+                    Add your college, course, branch, semester,
+                    roll number, CGPA, percentage, attendance,
+                    marks, grades, and backlogs.
+                </p>
+
+            </article>
+
+
+            <!-- Feature 3 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔍
+                </div>
+
+                <h3>
+                    Find Peers
+                </h3>
+
+                <p>
+                    Search for students by name and filter students
+                    by course and semester.
+                </p>
+
+            </article>
+
+
+            <!-- Feature 4 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Connect With Students
+                </h3>
+
+                <p>
+                    Discover other students and view their profiles
+                    to find people with similar academic interests.
+                </p>
+
+            </article>
+
+
+            <!-- Feature 5 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    ✏️
+                </div>
+
+                <h3>
+                    Edit Your Profile
+                </h3>
+
+                <p>
+                    Update your personal and academic information
+                    whenever you need to.
+                </p>
+
+            </article>
+
+
+            <!-- Feature 6 -->
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    🔐
+                </div>
+
+                <h3>
+                    Account Management
+                </h3>
+
+                <p>
+                    Register, sign in, manage your account, and
+                    securely log out when you are finished.
+                </p>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- How It Works -->
+    <section class="how-section">
+
+        <span class="section-label">
+            How It Works
+        </span>
+
+        <h2>
+            Get Started In Three Steps
+        </h2>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    1
+                </div>
+
+                <div>
+                    <h3>
+                        Create Your Account
+                    </h3>
+
+                    <p>
+                        Register and create your student account.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    2
+                </div>
+
+                <div>
+                    <h3>
+                        Complete Your Profile
+                    </h3>
+
+                    <p>
+                        Add your personal and academic information.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    3
+                </div>
+
+                <div>
+                    <h3>
+                        Discover Students
+                    </h3>
+
+                    <p>
+                        Search, filter, and view other student profiles.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Call To Action -->
+    <section class="cta-section">
+
+        <h2>
+            Start Building Your Student Network
+        </h2>
+
+        <p>
+            Create your profile and discover other students.
+        </p>
+
+        <a href="{{ url_for('register') }}" class="cta-btn">
+            Get Started
+        </a>
+
+    </section>
+
+
+    <!-- Footer Information -->
+    <footer class="index-footer">
+
+        <h3>
+            Student Network
+        </h3>
+
+        <p>
+            A platform designed to help students create profiles,
+            manage academic information, and discover peers.
+        </p>
+
+        <div class="footer-links">
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('register') }}">
+                Register
+            </a>
+
+        </div>
+
+        <p class="copyright">
+            © 2026 Student Network. All rights reserved.
+        </p>
+
+    </footer>
+
+</div>
+
+{% endblock %}
+

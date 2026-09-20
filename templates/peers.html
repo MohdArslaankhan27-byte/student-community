@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}Find Peers{% endblock %}
+
+{% block content %}
+
+
+
+
+    <!-- Search -->
+    <form method="GET" action="{{ url_for('peers') }}" class="peer-search-form">
+
+        <div class="search-box">
+
+            <span class="search-icon">🔍</span>
+
+            <input
+                type="text"
+                name="q"
+                value="{{ request.args.get('q', '') }}"
+                placeholder="Search by name, skill, or roll number..."
+            >
+
+            {% if request.args.get('q') %}
+                <a href="{{ url_for('peers',
+                    course=request.args.get('course', ''),
+                    semester=request.args.get('semester', '')) }}"
+                    class="clear-search">
+                    ✕
+                </a>
+            {% endif %}
+
+        </div>
+
+
+        <!-- Course Filters -->
+        <div class="filter-section">
+
+            <span class="filter-label">Course</span>
+
+            <div class="filter-row">
+
+                <a href="{{ url_for('peers',
+                    q=request.args.get('q', ''),
+                    semester=request.args.get('semester', '')) }}"
+                    class="filter-chip {% if not request.args.get('course') %}active{% endif %}">
+                    All Courses
+                </a>
+
+                {% for course in ['B.Tech CSE', 'B.Tech IT', 'B.Tech ECE', 'B.Sc Data Science', 'MCA'] %}
+
+                    <a href="{{ url_for('peers',
+                        q=request.args.get('q', ''),
+                        course=course,
+                        semester=request.args.get('semester', '')) }}"
+                        class="filter-chip {% if request.args.get('course') == course %}active{% endif %}">
+                        {{ course }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Semester Filters -->
+        <div class="filter-section">
+
+            <span class="filter-label">Semester</span>
+
+            <div class="filter-row">
+
+                <a href="{{ url_for('peers',
+                    q=request.args.get('q', ''),
+                    course=request.args.get('course', '')) }}"
+                    class="filter-chip {% if not request.args.get('semester') %}active{% endif %}">
+                    All Semesters
+                </a>
+
+                {% for sem in range(1, 9) %}
+
+                    <a href="{{ url_for('peers',
+                        q=request.args.get('q', ''),
+                        course=request.args.get('course', ''),
+                        semester=sem) }}"
+                        class="filter-chip {% if request.args.get('semester') == sem|string %}active{% endif %}">
+                        Sem {{ sem }}
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </form>
+
+
+    <!-- Results Count -->
+    <div class="peers-count">
+
+        <p>
+            Showing
+            <strong>{{ peers|length }}</strong>
+            peers
+        </p>
+
+    </div>
+
+
+    <!-- Peer Results -->
+    <div class="peer-list">
+
+        {% if peers %}
+
+            {% for peer in peers %}
+
+                <div class="peer-card">
+
+                    <!-- Profile Header -->
+                    <div class="peer-header">
+
+                        <div class="peer-photo">
+
+                            {% if peer['photo'] %}
+
+                                <img
+                                    src="{{ url_for('static', filename='uploads/' + peer['photo']) }}"
+                                    alt="Profile Photo"
+                                >
+
+                            {% else %}
+
+                                <div class="default-peer-photo">
+                                    👤
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="peer-info">
+
+                            <h2>
+                                {{ peer['name'] if peer['name'] else 'Please fill' }}
+                            </h2>
+
+                            <p>
+                                {{ peer['roll_number'] if peer['roll_number'] else 'Please fill' }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Academic Info -->
+                    <div class="peer-academic">
+
+                        <span>
+                            {{ peer['course'] if peer['course'] else 'Please fill' }}
+                        </span>
+
+                        <span>
+                            {% if peer['semester'] %}
+                                Sem {{ peer['semester'] }}
+                            {% else %}
+                                Please fill
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+
+                    <!-- Skills -->
+                    {% if peer['skills'] %}
+
+                        <div class="peer-skills">
+
+                            {% for skill in peer['skills'] %}
+
+                                <span>
+                                    {{ skill }}
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- Actions -->
+                    <div class="peer-actions">
+
+                        <a href="{{ url_for('peer_profile', user_id=peer.id) }}"
+                            class="view-profile-btn">
+                            View Profile
+                        </a>
+
+                        <form action="{{ url_for('send_friend_request', friend_id=peer.id) }}" method="POST">
+                            <button type="submit" class="connect-btn">Connect</button>
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-peers">
+
+                <div class="no-peers-icon">🔍</div>
+
+                <h2>No peers found</h2>
+
+                <p>
+                    Try changing your search or filters.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

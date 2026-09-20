@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+{% block title %}{{ peer.name }} - Profile{% endblock %}
+
+{% block content %}
+
+<div class="peer-profile">
+
+    <!-- Back Button -->
+    <div class="back-section">
+        <a href="{{ url_for('peers') }}" class="back-btn">
+            ←
+        </a>
+    </div>
+
+
+    <!-- Profile Header -->
+    <section class="profile-header">
+
+        <!-- Profile Photo -->
+        <div class="profile-photo-box">
+
+    {% if peer.photo %}
+        <img src="data:image/jpeg;base64,{{ peer.photo }}"
+             alt="Profile Photo"
+             class="peer-profile-photo">
+    {% else %}
+        <div class="peer-default-photo">
+            👤
+        </div>
+    {% endif %}
+
+</div>
+
+
+        <!-- Name -->
+        <div class="profile-name">
+
+            <h1>{{ peer.name }}</h1>
+
+            {% if peer.username %}
+                <p>@{{ peer.username }}</p>
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    <!-- Academic Information -->
+    <section class="profile-card">
+
+        <h2>Academic Information</h2>
+
+        <div class="info-list">
+
+            <!-- College -->
+            <div class="info-item">
+                <span class="info-label">College / School</span>
+
+                <span class="info-value">
+                    {% if peer.college %}
+                        {{ peer.college }}
+                    {% else %}
+                        Please fill
+                    {% endif %}
+                </span>
+            </div>
+
+
+            <!-- Course -->
+            <div class="info-item">
+                <span class="info-label">Course</span>
+
+                <span class="info-value">
+                    {% if peer.course %}
+                        {{ peer.course }}
+                    {% else %}
+                        Please fill
+                    {% endif %}
+                </span>
+            </div>
+
+
+            <!-- Semester -->
+            <div class="info-item">
+                <span class="info-label">Semester</span>
+
+                <span class="info-value">
+                    {% if peer.semester %}
+                        {{ peer.semester }}
+                    {% else %}
+                        Please fill
+                    {% endif %}
+                </span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Skills -->
+    <section class="profile-card">
+
+        <h2>Skills</h2>
+
+        {% if peer.skills %}
+
+            <div class="tags">
+
+                {% for skill in peer.skills %}
+
+                    <span class="tag">
+                        {{ skill }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="empty-text">
+                Please fill
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Career Interests -->
+    <section class="profile-card">
+
+        <h2>Career Interests</h2>
+
+        {% if peer.career_interests %}
+
+            <div class="tags">
+
+                {% for interest in peer.career_interests %}
+
+                    <span class="tag">
+                        {{ interest }}
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <p class="empty-text">
+                Please fill
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Social Links -->
+    <section class="profile-card">
+
+        <h2>Social Links</h2>
+
+        <div class="social-links">
+
+            <!-- GitHub -->
+            {% if peer.github_link %}
+
+                <a href="{{ peer.github_link }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="social-link">
+
+                    <span>GitHub</span>
+
+                    <span>↗</span>
+
+                </a>
+
+            {% else %}
+
+                <div class="social-link disabled">
+                    <span>GitHub</span>
+                    <span>Please fill</span>
+                </div>
+
+            {% endif %}
+
+
+            <!-- LinkedIn -->
+            {% if peer.linkedin_link %}
+
+                <a href="{{ peer.linkedin_link }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="social-link">
+
+                    <span>LinkedIn</span>
+
+                    <span>↗</span>
+
+                </a>
+
+            {% else %}
+
+                <div class="social-link disabled">
+                    <span>LinkedIn</span>
+                    <span>Please fill</span>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

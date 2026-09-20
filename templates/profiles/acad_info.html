@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title %}Academic Information{% endblock %}
+
+{% block content %}
+
+<div class="academic-info-page">
+
+    <!-- Top Bar -->
+    <div class="academic-info-header">
+
+        <a href="{{ url_for('more') }}" class="back-btn">
+            ←
+        </a>
+
+        <h1>Academic Information</h1>
+
+        <span></span>
+
+    </div>
+
+
+    <!-- Academic Overview -->
+    <div class="academic-overview">
+
+        <div class="academic-icon">
+            🎓
+        </div>
+
+        <div class="academic-overview-content">
+
+            <span>Course</span>
+
+            <h2>
+                {{ user['course'] if user['course'] else 'Please fill' }}
+            </h2>
+
+            <p>
+                {{ user['college'] if user['college'] else 'Please fill' }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Academic Performance -->
+    <h3 class="section-title">Academic Performance</h3>
+
+    <div class="academic-performance">
+
+        <!-- CGPA -->
+        <div class="academic-card">
+
+            <span class="card-icon">📊</span>
+
+            <span class="card-label">CGPA</span>
+
+            <strong>
+                {{ user['cgpa'] if user['cgpa'] else 'Please fill' }}
+            </strong>
+
+        </div>
+
+
+        <!-- Percentage -->
+        <div class="academic-card">
+
+            <span class="card-icon">📈</span>
+
+            <span class="card-label">Percentage</span>
+
+            <strong>
+                {% if user['percentage'] %}
+                    {{ user['percentage'] }}%
+                {% else %}
+                    Please fill
+                {% endif %}
+            </strong>
+
+        </div>
+
+
+        <!-- Attendance -->
+        <div class="academic-card">
+
+            <span class="card-icon">📅</span>
+
+            <span class="card-label">Attendance</span>
+
+            <strong>
+                {% if user['attendance'] %}
+                    {{ user['attendance'] }}%
+                {% else %}
+                    Please fill
+                {% endif %}
+            </strong>
+
+        </div>
+
+
+        <!-- Backlogs -->
+        <div class="academic-card">
+
+            <span class="card-icon">📚</span>
+
+            <span class="card-label">Backlogs</span>
+
+            <strong>
+                {{ user['backlogs'] if user['backlogs'] is not none else 'Please fill' }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- Institutional Information -->
+    <h3 class="section-title">Institutional Information</h3>
+
+    <div class="academic-details">
+
+
+        <!-- College -->
+        <div class="academic-row">
+
+            <div class="row-icon">🏫</div>
+
+            <div class="row-content">
+
+                <span>College / School</span>
+
+                <strong>
+                    {{ user['college'] if user['college'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Course -->
+        <div class="academic-row">
+
+            <div class="row-icon">🎓</div>
+
+            <div class="row-content">
+
+                <span>Course</span>
+
+                <strong>
+                    {{ user['course'] if user['course'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Branch -->
+        <div class="academic-row">
+
+            <div class="row-icon">💻</div>
+
+            <div class="row-content">
+
+                <span>Branch / Department</span>
+
+                <strong>
+                    {{ user['branch'] if user['branch'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Semester -->
+        <div class="academic-row">
+
+            <div class="row-icon">📖</div>
+
+            <div class="row-content">
+
+                <span>Semester</span>
+
+                <strong>
+                    {{ user['semester'] if user['semester'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Roll Number -->
+        <div class="academic-row">
+
+            <div class="row-icon">🪪</div>
+
+            <div class="row-content">
+
+                <span>Roll Number</span>
+
+                <strong>
+                    {{ user['roll_number'] if user['roll_number'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Enrollment Number -->
+        <div class="academic-row">
+
+            <div class="row-icon">🔢</div>
+
+            <div class="row-content">
+
+                <span>Enrollment Number</span>
+
+                <strong>
+                    {{ user['enrollment_number'] if user['enrollment_number'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Academic Year -->
+        <div class="academic-row">
+
+            <div class="row-icon">📅</div>
+
+            <div class="row-content">
+
+                <span>Academic Year</span>
+
+                <strong>
+                    {{ user['academic_year'] if user['academic_year'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Section -->
+        <div class="academic-row">
+
+            <div class="row-icon">👥</div>
+
+            <div class="row-content">
+
+                <span>Section</span>
+
+                <strong>
+                    {{ user['section'] if user['section'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Subjects -->
+        <div class="academic-row">
+
+            <div class="row-icon">📚</div>
+
+            <div class="row-content">
+
+                <span>Subjects</span>
+
+                <strong>
+                    {{ user['subjects'] if user['subjects'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Marks -->
+        <div class="academic-row">
+
+            <div class="row-icon">📝</div>
+
+            <div class="row-content">
+
+                <span>Marks</span>
+
+                <strong>
+                    {{ user['marks'] if user['marks'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Grades -->
+        <div class="academic-row">
+
+            <div class="row-icon">🏆</div>
+
+            <div class="row-content">
+
+                <span>Grades</span>
+
+                <strong>
+                    {{ user['grades'] if user['grades'] else 'Please fill' }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,157 @@
+
+{% extends "base.html" %}
+
+{% block title %}Basic Information{% endblock %}
+
+{% block content %}
+
+<div class="basic-info-page">
+
+    <!-- Top Bar -->
+    <div class="basic-info-header">
+
+        <a href="{{ url_for('home') }}" class="back-btn">
+            ←
+        </a>
+
+        <h1>Basic Information</h1>
+
+        <span></span>
+
+    </div>
+
+
+    <!-- Profile Header -->
+    <div class="basic-profile">
+
+        <div class="basic-profile-photo">
+
+            {% if user['photo'] %}
+                <img src="{{ url_for('static', filename='uploads/' + user['photo']) }}"
+                     alt="Profile Photo">
+            {% else %}
+                <div class="default-photo">👤</div>
+            {% endif %}
+
+        </div>
+
+        <h2>{{ user['name'] }}</h2>
+
+    </div>
+
+
+    <!-- Basic Information Card -->
+    <div class="basic-info-card">
+
+        <!-- Full Name -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                👤
+            </div>
+
+            <div class="info-content">
+                <span>Full Name</span>
+
+                <strong>
+                    {{ user['name'] if user['name'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Phone Number -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                📞
+            </div>
+
+            <div class="info-content">
+                <span>Phone Number</span>
+
+                <strong>
+                    {{ user['phone'] if user['phone'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Email Address -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                ✉
+            </div>
+
+            <div class="info-content">
+                <span>Email Address</span>
+
+                <strong>
+                    {{ user['email'] if user['email'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Date of Birth -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                🎂
+            </div>
+
+            <div class="info-content">
+                <span>Date of Birth</span>
+
+                <strong>
+                    {{ user['dob'] if user['dob'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Gender -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                ⚥
+            </div>
+
+            <div class="info-content">
+                <span>Gender</span>
+
+                <strong>
+                    {{ user['gender'] if user['gender'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- Address -->
+        <div class="info-row">
+
+            <div class="info-icon">
+                📍
+            </div>
+
+            <div class="info-content">
+                <span>Address</span>
+
+                <strong>
+                    {{ user['address'] if user['address'] else 'Please fill' }}
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

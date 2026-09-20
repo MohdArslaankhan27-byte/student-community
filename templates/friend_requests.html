@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="friends-page">
+
+    <div class="friends-header">
+
+        <div>
+            <h1>Friend Requests</h1>
+            <p>People who want to connect with you</p>
+        </div>
+
+        <a class="friend-requests-btn"
+           href="{{ url_for('friends') }}">
+            My Friends
+        </a>
+
+    </div>
+
+
+    {% if requests %}
+
+        <div class="requests-list">
+
+            {% for request in requests %}
+
+                <div class="request-card">
+
+                    <div class="request-avatar-placeholder">
+                        {{ request.name[0] }}
+                    </div>
+
+
+                    <div class="request-info">
+
+                        <h3>{{ request.name }}</h3>
+
+                        <p>Wants to connect with you</p>
+
+                    </div>
+
+
+                    <div class="request-actions">
+
+                        <form action="{{ url_for('accept_friend_request', request_id=request.id) }}"
+                              method="POST">
+
+                            <button class="accept-btn" type="submit">
+                                Accept
+                            </button>
+
+                        </form>
+
+
+                        <form action="{{ url_for('reject_friend_request', request_id=request.id) }}"
+                              method="POST">
+
+                            <button class="reject-btn" type="submit">
+                                Reject
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="empty-friends">
+
+            <div class="empty-icon">📩</div>
+
+            <h2>No Friend Requests</h2>
+
+            <p>You don't have any pending friend requests.</p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
