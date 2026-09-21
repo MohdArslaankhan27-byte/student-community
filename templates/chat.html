@@ -114,25 +114,99 @@
         <!-- MESSAGE INPUT -->
 
         <form class="message-form"
-              method="POST"
-              action="{{ url_for('send_message', friend_id=friend.id) }}">
+        id="messageForm">
 
-            <input
-                type="text"
-                name="message"
-                placeholder="Type a message..."
-                autocomplete="off"
-                required
-            >
+    <input
+        type="text"
+        name="message"
+        id="messageInput"
+        placeholder="Type a message..."
+        autocomplete="off"
+        required
+    >
 
-            <button type="submit">
-                Send
-            </button>
+    <button type="submit">
+        Send
+    </button>
 
-        </form>
+</form>
 
     </div>
 
 </div>
+
+<script>
+
+const messageForm = document.getElementById("messageForm");
+const messageInput = document.getElementById("messageInput");
+const messagesContainer = document.querySelector(".messages-container");
+
+messageForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const message = messageInput.value.trim();
+
+    if (!message) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            "{{ url_for('send_message', friend_id=friend.id) }}",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: message
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+
+            const messageRow = document.createElement("div");
+            messageRow.className = "message-row sent";
+
+            messageRow.innerHTML = `
+                <div class="message">
+                    ${escapeHtml(data.message)}
+                </div>
+            `;
+
+            messagesContainer.appendChild(messageRow);
+
+            messageInput.value = "";
+
+            messagesContainer.scrollTop =
+                messagesContainer.scrollHeight;
+        }
+
+    } catch (error) {
+
+        console.error("Error sending message:", error);
+
+    }
+
+});
+
+
+function escapeHtml(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+</script> 
 
 {% endblock %}

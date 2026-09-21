@@ -535,15 +535,17 @@ def send_message(friend_id):
 
     user_id = session['user_id']
 
-    message = request.form.get('message', '').strip()
+    data = request.get_json()
+    message = data.get('message', '').strip() if data else ''
 
-    # Don't send empty messages
     if not message:
-        return redirect(url_for('chat', friend_id=friend_id))
+        return jsonify({
+            'success': False,
+            'error': 'Message cannot be empty'
+        }), 400
 
     cursor = get_cursor()
 
-    # Save message
     cursor.execute("""
         INSERT INTO messages
         (sender_id, receiver_id, message)
@@ -556,7 +558,10 @@ def send_message(friend_id):
 
     db.commit()
 
-    return redirect(url_for('chat', friend_id=friend_id))
+    return jsonify({
+        'success': True,
+        'message': message
+    })
 
 
 
