@@ -196,7 +196,7 @@
 
 .chat-page {
     width: 100%;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
 
     display: grid;
     grid-template-columns: 320px minmax(0, 1fr);
@@ -215,9 +215,8 @@
     width: 100%;
     min-width: 0;
 
-    height: 100%;
-
     background: #ffffff;
+
     border-right: 1px solid #ddd;
 
     display: flex;
