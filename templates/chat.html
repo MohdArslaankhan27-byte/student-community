@@ -2,14 +2,22 @@
 
 {% block content %}
 
-<div class="chat-page">
+<div class="chat-page friends-page-layout">
 
     <!-- LEFT: FRIEND LIST -->
     <div class="friends-panel">
 
         <div class="friends-header">
-            <h2>My Friends</h2>
-        </div>
+
+    <h2>My Friends</h2>
+
+    <a href="{{ url_for('friend_requests') }}"
+        class="friend-request-link"
+        title="Friend Requests">
+        👥
+    </a>
+
+</div>
 
         <div class="friends-list">
 
