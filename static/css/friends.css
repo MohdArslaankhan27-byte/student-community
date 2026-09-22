@@ -5,9 +5,11 @@
 
 .chat-page {
     width: 100%;
-    min-height: calc(100vh - 70px);
-    display: flex;
-    background: #f5f6f8;
+    height: calc(100vh - 70px);
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    background: #f8f9fa;
+    overflow: hidden;
 }
 
 
@@ -214,14 +216,11 @@
 .friends-panel {
     width: 100%;
     min-width: 0;
-
+    height: 100%;
     background: #ffffff;
-
     border-right: 1px solid #ddd;
-
     display: flex;
     flex-direction: column;
-
     overflow: hidden;
 }
 
@@ -249,7 +248,7 @@
 
 .friends-list {
     flex: 1;
-
+    min-height: 0;
     overflow-y: auto;
 }
 
