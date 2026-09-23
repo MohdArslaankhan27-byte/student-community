@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/friends.css') }}">
+{% endblock %}
+
 {% block content %}
 
 <div class="chat-page">

@@ -3,9 +3,13 @@
 
 {% block title %}Student Network{% endblock %}
 
+{% block css %}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <div class="index-page">
 

@@ -5,7 +5,7 @@
 
 .chat-page {
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 110px);
     display: grid;
     grid-template-columns: 320px minmax(0, 1fr);
     background: #f8f9fa;
@@ -198,7 +198,7 @@
 
 .chat-page {
     width: 100%;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 110px);
 
     display: grid;
     grid-template-columns: 320px minmax(0, 1fr);
@@ -345,7 +345,7 @@
     width: 100%;
     min-width: 0;
 
-    height: calc(100vh - 70px);
+    height: calc(100vh - 105px);
 
     display: flex;
     flex-direction: column;
@@ -637,7 +637,7 @@
     .friends-page-layout .friends-panel {
         display: flex;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 90px);
         max-height: none;
         border-right: none;
     }
@@ -667,7 +667,7 @@
         display: flex;
         width: 100%;
         min-width: 0;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 105px);
     }
 
 

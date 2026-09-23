@@ -2,9 +2,14 @@
 
 {% block title %}Home Dashboard — CampusConnect{% endblock %}
 
+{% block css %}
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
 {% block content %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
 
 <div class="home-page">
 
