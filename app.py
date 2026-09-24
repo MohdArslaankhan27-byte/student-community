@@ -527,6 +527,40 @@ def chat(friend_id):
     )
 
 
+@app.route('/get-messages/<int:friend_id>')
+@login_required
+def get_messages(friend_id):
+
+    user_id = session['user_id']
+
+    cursor = get_cursor()
+
+    cursor.execute("""
+        SELECT
+            id,
+            sender_id,
+            receiver_id,
+            message,
+            created_at
+        FROM messages
+        WHERE
+            (sender_id = %s AND receiver_id = %s)
+            OR
+            (sender_id = %s AND receiver_id = %s)
+        ORDER BY created_at ASC
+    """, (
+        user_id,
+        friend_id,
+        friend_id,
+        user_id
+    ))
+
+    messages = cursor.fetchall()
+
+    return jsonify({
+        'success': True,
+        'messages': messages
+    })
 
 
 @app.route('/send-message/<int:friend_id>', methods=['POST'])
@@ -558,9 +592,12 @@ def send_message(friend_id):
 
     db.commit()
 
+    message_id = cursor.lastrowid
+
     return jsonify({
         'success': True,
-        'message': message
+        'message': message,
+        'message_id': message_id
     })
 
 
