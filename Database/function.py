@@ -1,7 +1,7 @@
 import re
 from flask import redirect, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from Database.db import get_cursor
+from Database.db import get_cursor,db
 from functools import wraps
 
 
@@ -138,3 +138,16 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+
+def delete_old_messages():
+    cursor = get_cursor()
+
+    cursor.execute("""
+        DELETE FROM messages
+        WHERE created_at < NOW() - INTERVAL 7 DAY
+    """)
+
+    db.commit()
+    cursor.close()

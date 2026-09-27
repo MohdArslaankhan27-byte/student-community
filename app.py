@@ -3,7 +3,7 @@ import profile
 from flask import Flask, jsonify, render_template,request, redirect, url_for,flash , session
 import sqlite3
 from Database.db import db, get_cursor
-from Database.function import is_valid_email, email_exists, hash_password,get_user_by_email,get_peers,check_password,get_user_by_id,login_required
+from Database.function import is_valid_email, email_exists, hash_password,get_user_by_email,get_peers,check_password,get_user_by_id,login_required,delete_old_messages
 import os
 from werkzeug.utils import secure_filename
 
@@ -446,6 +446,8 @@ def friends():
 @app.route('/chat/<int:friend_id>')
 @login_required
 def chat(friend_id):
+
+    delete_old_messages()
 
     user_id = session['user_id']
 
