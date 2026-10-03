@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Coordinator Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/coordinator_css/coordinatorpage.css') }}">
+</head>
+<body>
+
+    <!-- Dimming Background Overlay when Sidebar is open -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand-section">
+            <div class="brand">Coordinator Hub</div>
+            <a href="{{ url_for('home') }}" class="btn-home">← Back to Home Page</a>
+        </div>
+        
+        <div class="menu-section">Personal</div>
+        <a href="#" class="menu-item">Manage Own Profile</a>
+
+        <div class="menu-section">Academic Hub</div>
+        <a href="#" class="menu-item">View Student Data</a>
+        <a href="#" class="menu-item">Upload Marks</a>
+        <a href="#" class="menu-item">Edit / Delete Marks</a>
+        <a href="#" class="menu-item">Upload Results</a>
+        <a href="#" class="menu-item">Manage Academic Info</a>
+
+        <div class="menu-section">Notices & Comms</div>
+        <a href="#" class="menu-item">Upload Notices</a>
+        <a href="#" class="menu-item">Edit / Delete Notices</a>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+        <header>
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle Sidebar">☰</button>
+                <h2>Academic Desk Overview</h2>
+            </div>
+            <div class="user-profile">
+                <span>Welcome, Coordinator</span>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Summary Stats tailored to academic focus -->
+            <div class="stats-grid">
+                <div class="card"><h3>Assigned Students</h3><p>450</p></div>
+                <div class="card"><h3>Notices Published</h3><p>5</p></div>
+                <div class="card"><h3>Uploaded Batches</h3><p>12 Classes</p></div>
+            </div>
+
+            <!-- Working Panel Area -->
+            <div class="view-panel">
+                <div class="panel-header">
+                    <h3>Academic Management Workspace</h3>
+                </div>
+                <p id="sidebarInstructions">Click the ☰ icon in the top left corner to open your student logs, upload course marks, or issue announcements.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/admin_coordinator.js') }}"></script>
+</body>
+</html>

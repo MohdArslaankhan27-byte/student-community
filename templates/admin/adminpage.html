@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_css/adminpage.css') }}">
+</head>
+<body>
+
+    <!-- Dimming Background Overlay when Sidebar is open -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand-section">
+            <div class="brand">Institution Admin</div>
+            <!-- Flask Route home button link -->
+            <a href="{{ url_for('home') }}" class="btn-home">← Back to Home Page</a>
+        </div>
+        
+        <div class="menu-section">Personal</div>
+        <a href="#" class="menu-item">Manage Profile</a>
+
+        <div class="menu-section">Academic Hub</div>
+        <a href="#" class="menu-item" data-snippet="upload-marks">
+            Upload Marks & Results
+        </a>
+        <a href="#" class="menu-item" data-snippet="edit-marks">
+            Edit / Delete Marks
+        </a>
+        <a href="#" class="menu-item" data-snippet="academic-info">
+            Manage Academic Info
+        </a>
+
+        <div class="menu-section">Notices & Comms</div>
+        <a href="#" class="menu-item" data-snippet="upload-notice">
+            Upload Notice
+        </a>
+        <a href="#" class="menu-item" data-snippet="edit-notices">
+            Edit / Delete Notices
+        </a>
+
+        <div class="menu-section">User Management</div>
+        <a href="#" class="menu-item" data-snippet="view-student-data">
+            View Student Data
+        </a>
+        <a href="#" class="menu-item" data-snippet="manage-normal-users">
+            Manage Normal Users
+        </a>
+        <a href="#" class="menu-item" data-snippet="create-coordinator">
+            Create Coordinator
+        </a>
+        <a href="#" class="menu-item" data-snippet="change-user-roles">
+            Change User Roles
+        </a>
+
+        <div class="menu-section">System Settings</div>
+        <a href="#" class="menu-item" data-snippet="manage-admins">
+            Manage Admins
+        </a>
+        <a href="#" class="menu-item" data-snippet="website-settings">
+            Website Settings
+        </a>
+
+        <div class="danger-zone">
+            <a href="#" class="menu-item danger-item">⚠️ Wipe Database / Accounts</a>
+        </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-content">
+        <header>
+            <div class="header-left">
+                <!-- Three line symbols trigger button -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Toggle Sidebar">☰</button>
+                <h2>Dashboard Overview</h2>
+            </div>
+            <div class="user-profile">
+                <span>Welcome, Admin</span>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Summary Stats -->
+            <div class="stats-grid">
+
+    <div class="card">
+        <h3>Total Students</h3>
+        <p>{{ total_students }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Active Notices</h3>
+        <p>{{ active_notices }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Pending Results</h3>
+        <p>{{ pending_results }}</p>
+    </div>
+
+    <div class="card">
+        <h3>System Alerts</h3>
+        <p>{{ system_alerts }}</p>
+    </div>
+
+</div>
+
+            <!-- Working Panel Area -->
+            <div class="view-panel">
+
+    <div class="panel-header">
+        <h3>Active Management Console</h3>
+    </div>
+
+    <div id="managementContent">
+        <p id="sidebarInstructions">
+            Click a management option from the sidebar.
+        </p>
+    </div>
+
+    <!-- All management snippets -->
+    <div id="snippets">
+        {% include 'admin/admin_snippets.html' %}
+    </div>
+
+</div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/admin_coordinator.js') }}"></script>
+</body>
+</html>

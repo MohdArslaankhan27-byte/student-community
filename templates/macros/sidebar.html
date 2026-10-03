@@ -65,6 +65,20 @@
     <!-- Profile Links -->
     <div class="p-4 space-y-2">
 
+        {% if user and user['role'] == 'admin' %}
+            <a href="{{ url_for('adminpage') }}"
+                class="block px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white">
+                🛠️ Admin
+            </a>
+        {% endif %}
+
+        {% if user and user['role'] == 'coordinator' %}
+            <a href="{{ url_for('coordinatorpage') }}"
+                class="block px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white">
+                🎓 Coordinator
+            </a>
+        {% endif %}
+
         <a href="{{ url_for('basic_info') }}"
            class="block px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white">
             👤 Basic Information

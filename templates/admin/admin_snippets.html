@@ -1,0 +1,72 @@
+<!-- Upload Marks & Results -->
+    
+<div id="upload-marks" class="card">
+    <h2>Upload Student Marks</h2>
+
+    <form id="uploadMarksForm" method="POST" action="{{ url_for('adminpage') }}">
+
+        <div class="form-group">
+            <label for="roll_number">Student Roll Number</label>
+            <input type="text"
+                    id="roll_number"
+                    name="roll_number"
+                    placeholder="Enter student roll number"
+                    required>
+        </div>
+
+        <div class="form-group">
+            <label for="subject_id">Subject</label>
+
+            <select id="subject_id" name="subject_id" required>
+                <option value="">Select Subject</option>
+
+                {% for subject in subjects %}
+                    <option value="{{ subject.id }}">
+                        Semester {{ subject.semester }} -
+                        {{ subject.subject_code }} -
+                        {{ subject.subject_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="marks-grid">
+
+            <div class="form-group">
+                <label for="sessional_1">Sessional 1</label>
+                <input type="number"
+                       id="sessional_1"
+                       name="sessional_1"
+                       min="0"
+                       step="0.01"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="sessional_2">Sessional 2</label>
+                <input type="number"
+                       id="sessional_2"
+                       name="sessional_2"
+                       min="0"
+                       step="0.01"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="semester_exam">Semester Exam</label>
+                <input type="number"
+                       id="semester_exam"
+                       name="semester_exam"
+                       min="0"
+                       step="0.01"
+                       required>
+            </div>
+
+        </div>
+
+        <button type="submit">Save Marks</button>
+
+    </form>
+</div>
+
+

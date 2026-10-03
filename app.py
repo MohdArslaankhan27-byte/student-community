@@ -3,7 +3,7 @@ import profile
 from flask import Flask, jsonify, render_template,request, redirect, url_for,flash , session
 import sqlite3
 from Database.db import db, get_cursor
-from Database.function import is_valid_email, email_exists, hash_password,get_user_by_email,get_peers,check_password,get_user_by_id,login_required,delete_old_messages
+from Database.function import is_valid_email, email_exists, hash_password,get_user_by_email,get_peers,check_password,get_user_by_id,login_required,delete_old_messages,admin_required
 import os
 from werkzeug.utils import secure_filename
 
@@ -602,6 +602,105 @@ def send_message(friend_id):
         'message_id': message_id
     })
 
+
+
+@app.route('/adminpage', methods=['GET', 'POST'])
+@login_required
+@admin_required('admin')
+def adminpage():
+
+    cursor = get_cursor()
+
+    # -------------------------
+    # Upload Student Marks
+    # -------------------------
+
+    if request.method == 'POST':
+
+        roll_number = request.form.get('roll_number')
+        subject_id = request.form.get('subject_id')
+        sessional_1 = request.form.get('sessional_1')
+        sessional_2 = request.form.get('sessional_2')
+        semester_exam = request.form.get('semester_exam')
+
+        # Find student using roll number
+        cursor.execute(
+            "SELECT id FROM users WHERE roll_number = %s",
+            (roll_number,)
+        )
+
+        student = cursor.fetchone()
+
+        if not student:
+            cursor.close()
+
+            return jsonify({
+                "success": False,
+                "message": "Student not found."
+            }), 404
+
+        student_id = student['id']
+
+        # Insert / Update marks
+        cursor.execute("""
+            INSERT INTO student_marks
+            (student_id, subject_id, sessional_1, sessional_2, semester_exam)
+            VALUES (%s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+                sessional_1 = VALUES(sessional_1),
+                sessional_2 = VALUES(sessional_2),
+                semester_exam = VALUES(semester_exam)
+        """, (
+            student_id,
+            subject_id,
+            sessional_1,
+            sessional_2,
+            semester_exam
+        ))
+
+        db.commit()
+        cursor.close()
+
+        return jsonify({
+            "success": True,
+            "message": "Marks uploaded successfully."
+        })
+
+
+    # -------------------------
+    # Total Students
+    # -------------------------
+
+    cursor.execute(
+        "SELECT COUNT(*) AS total FROM users"
+    )
+
+    result = cursor.fetchone()
+    total_students = result['total']
+
+
+    # -------------------------
+    # Get Subjects
+    # -------------------------
+
+    cursor.execute("""
+        SELECT id, subject_code, subject_name, semester
+        FROM subjects
+        ORDER BY semester, subject_name
+    """)
+
+    subjects = cursor.fetchall()
+
+    cursor.close()
+
+    return render_template(
+    'admin/adminpage.html',
+    total_students=total_students,
+    active_notices=0,
+    pending_results=0,
+    system_alerts=0,
+    subjects=subjects,
+)
 
 
 
