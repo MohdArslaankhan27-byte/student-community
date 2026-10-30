@@ -70,3 +70,51 @@
 </div>
 
 
+
+<!-- Edit / Delete Marks -->
+<div id="edit-marks" class="card">
+
+    <h2>Edit / Delete Student Marks</h2>
+
+    <div class="form-group">
+        <label for="search_roll_number">Student Roll Number</label>
+        <input type="text" id="search_roll_number"
+               placeholder="Enter student roll number">
+        <button type="button" onclick="fetchStudentMarks()">
+            Search
+        </button>
+    </div>
+
+    <h3 id="studentName"></h3>
+    <div id="marksResult"></div>
+
+</div>
+
+
+
+
+<!-- Create Coordinator Snippet -->
+<div id="create-coordinator" class="snippet" style="display: none;">
+
+    <h2>Create Coordinator</h2>
+    <p>Search for a student and assign them the coordinator role.</p>
+
+    <form id="coordinatorForm">
+
+        <label for="coordinator-email">Student Email:</label>
+        <input
+            type="email"
+            id="coordinator-email"
+            name="email"
+            placeholder="Enter student email"
+            required
+        >
+
+        <button type="submit">Make Coordinator</button>
+
+    </form>
+
+    <div id="coordinator-message"></div>
+
+</div>
+

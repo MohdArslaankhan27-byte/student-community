@@ -704,6 +704,269 @@ def adminpage():
 
 
 
+# API: Get Marks by Roll Number
+
+@app.route('/api/marks/<roll_no>', methods=['GET'])
+def get_marks(roll_no):
+    cursor = get_cursor()
+
+    query = """
+        SELECT
+            u.name AS student_name,
+            m.id AS mark_id,
+            s.semester,
+            s.subject_code AS subcode,
+            s.subject_name,
+            m.sessional_1,
+            m.sessional_2,
+            m.semester_exam
+        FROM student_marks m
+        JOIN users u ON m.student_id = u.id
+        JOIN subjects s ON m.subject_id = s.id
+        WHERE u.roll_number = %s
+        ORDER BY s.semester, s.subject_code
+    """
+
+    try:
+        cursor.execute(query, (roll_no,))
+        records = cursor.fetchall()
+
+        if not records:
+            return jsonify({
+                "error": "No records found for this Roll Number."
+            }), 404
+
+        semesters_data = {}
+
+        for record in records:
+            semester = record['semester']
+
+            if semester not in semesters_data:
+                semesters_data[semester] = []
+
+            semesters_data[semester].append({
+                "id": record['mark_id'],
+                "subcode": record['subcode'],
+                "subject": record['subject_name'],
+                "sessional_1": record['sessional_1'],
+                "sessional_2": record['sessional_2'],
+                "semExam": record['semester_exam']
+            })
+
+        return jsonify({
+            "name": records[0]['student_name'],
+            "semesters": semesters_data
+        })
+
+    except Exception:
+        app.logger.exception("Error fetching student marks")
+        return jsonify({"error": "Failed to fetch marks."}), 500
+
+    finally:
+        cursor.close()
+
+
+
+
+@app.route('/api/marks/update/<int:mark_id>', methods=['PUT'])
+@login_required
+@admin_required('admin')
+def update_student_marks(mark_id):
+    cursor = get_cursor()
+
+    try:
+        data = request.get_json()
+
+        if not data:
+            return jsonify({
+                "success": False,
+                "message": "No data received."
+            }), 400
+
+        allowed_fields = {
+            'sessional_1',
+            'sessional_2',
+            'semester_exam'
+        }
+
+        if len(data) != 1 or not set(data.keys()).issubset(allowed_fields):
+            return jsonify({
+                "success": False,
+                "message": "Update exactly one valid marks field."
+            }), 400
+
+        field, value = next(iter(data.items()))
+
+        try:
+            value = float(value)
+            if not 0 <= value <= 100:
+                raise ValueError
+        except (TypeError, ValueError):
+            return jsonify({
+                "success": False,
+                "message": "Marks must be between 0 and 100."
+            }), 400
+
+        cursor.execute(
+            f"UPDATE student_marks SET {field} = %s WHERE id = %s",
+            (value, mark_id)
+        )
+
+        if cursor.rowcount == 0:
+            cursor.execute(
+                "SELECT id FROM student_marks WHERE id = %s",
+                (mark_id,)
+            )
+
+            if not cursor.fetchone():
+                db.rollback()
+                return jsonify({
+                    "success": False,
+                    "message": "Marks record not found."
+                }), 404
+
+        db.commit()
+
+        return jsonify({
+            "success": True,
+            "message": f"{field.replace('_', ' ').title()} updated successfully."
+        })
+
+    except Exception:
+        db.rollback()
+        app.logger.exception("Error updating student marks")
+
+        return jsonify({
+            "success": False,
+            "message": "Failed to update marks."
+        }), 500
+
+    finally:
+        cursor.close()
+
+
+
+
+@app.route('/api/marks/delete/<int:mark_id>', methods=['DELETE'])
+@login_required
+@admin_required('admin')
+def delete_student_marks(mark_id):
+    cursor = get_cursor()
+
+    try:
+        cursor.execute(
+            "DELETE FROM student_marks WHERE id = %s",
+            (mark_id,)
+        )
+
+        if cursor.rowcount == 0:
+            return jsonify({
+                "success": False,
+                "message": "Marks record not found."
+            }), 404
+
+        db.commit()
+
+        return jsonify({
+            "success": True,
+            "message": "Marks deleted successfully."
+        })
+
+    except Exception:
+        db.rollback()
+        app.logger.exception("Error deleting student marks")
+
+        return jsonify({
+            "success": False,
+            "message": "Failed to delete marks."
+        }), 500
+
+    finally:
+        cursor.close()
+
+
+@app.route('/admin/create-coordinator', methods=['POST'])
+def create_coordinator():
+    if 'user_id' not in session:
+        return jsonify({
+            'success': False,
+            'message': 'Please log in.'
+        }), 401
+
+    cursor = get_cursor()
+
+    try:
+        # Verify that the logged-in user is an admin
+        cursor.execute(
+            "SELECT role FROM users WHERE id = %s",
+            (session['user_id'],)
+        )
+        admin = cursor.fetchone()
+
+        if not admin or admin['role'] != 'admin':
+            return jsonify({
+                'success': False,
+                'message': 'Admin access required.'
+            }), 403
+
+        email = request.form.get('email', '').strip()
+
+        if not email:
+            return jsonify({
+                'success': False,
+                'message': 'Please enter an email.'
+            }), 400
+
+        cursor.execute(
+            "SELECT id, role FROM users WHERE email = %s",
+            (email,)
+        )
+        user = cursor.fetchone()
+
+        if not user:
+            return jsonify({
+                'success': False,
+                'message': 'User not found.'
+            }), 404
+
+        if user['role'] == 'admin':
+            return jsonify({
+                'success': False,
+                'message': 'An admin cannot be changed to coordinator.'
+            }), 400
+
+        if user['role'] == 'coordinator':
+            return jsonify({
+                'success': False,
+                'message': 'This user is already a coordinator.'
+            }), 400
+
+        cursor.execute(
+            "UPDATE users SET role = %s WHERE id = %s",
+            ('coordinator', user['id'])
+        )
+
+        cursor.connection.commit()
+
+        return jsonify({
+            'success': True,
+            'message': 'Coordinator role assigned successfully.'
+        })
+
+    except Exception:
+        cursor.connection.rollback()
+        app.logger.exception("Failed to assign coordinator role")
+
+        return jsonify({
+            'success': False,
+            'message': 'An unexpected error occurred.'
+        }), 500
+
+    finally:
+        cursor.close()
+
+
+
 @app.context_processor
 def inject_user():
     user = None
